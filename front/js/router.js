@@ -1,17 +1,15 @@
-define(['jquery','backbone'],
-	function($,Backbone) {
+define(['jquery','backbone', '../js/view/singleGameView', 'socketio' ],
+	function($, Backbone, SingleGameView, io) {
 		var Router = Backbone.Router.extend({
 		    
 		    routes:{
-		    	"":"home"
+		    	"" : "newGame"
 		    },
-
-		    initialize : function(){
-		    	
+		   	newGame:function(){
+		    	new SingleGameView({el: $(".sigleGame")});
 		    },
-
-		    home:function(){
-		    	
+		    start:function(){
+		    	Backbone.history.start();
 		    }
 
 		});
