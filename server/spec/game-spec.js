@@ -26,16 +26,27 @@ describe("When the user buy one card",function () {
 		});
 		card = game.buyCard("Renan");
 	});
-
+	
 	it("Should return one random card",function(){
 		expect(card).toBe("{ 'naipe' : 'Heart', 'value' : "+count+", 'card' : "+count+", 'user' : 'Renan'}");
 	});
 	it("Should assign the card to the user",function(){
 	    expect(game.userCards).toBeDefined()
 	});
-	it("Should have the user points",function () {
-		spyOn(game, "pickRandomCard").reset();
-		vargame.buyCard("Renan");
-		expect(game.getUserPontuation("Renan")).toBe("16")
+});
+
+describe("When the user say that is enougth",function () {
+	var game;
+	beforeEach(function () {
+		game = new Game(["Renan","Thiago"]);
 	});
+	it("Should be able to finish the game",function () {
+		game.noMoreCardsForMe("Renan");
+		expect(game.usersDone[0]).toBe("Renan");
+	});
+	it("Should not be able to buy a card if the user has already finished the game",function() {
+		game.noMoreCardsForMe("Renan");
+		expect(function(){game.buyCard("Renan")}).toThrow("You already closed your hand");
+
+	})
 });
