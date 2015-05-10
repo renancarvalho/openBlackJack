@@ -1,0 +1,31 @@
+{
+	"hotelName":"hotel1",
+	"stars":3,
+	"address" : {
+		"street" : "",
+		"number": "",
+		"state" : "",
+		"neiborhood" : "",
+		"country" : ""
+	},
+	"photos" : [
+		{
+			"1" : "",
+			"2" : "",
+			"3" : "",
+			"4" : "",
+			"5" : ""
+		}]
+	},
+	"description" : "description text",
+	"facilities" : {
+		"1" : "free wifi",
+		"2" : "room service",
+		"3" : "gym",
+		"4" : "pets",
+		"5" : "shoe-shine",
+		"6" : "free parking",
+		"7" : "restaurant",
+		"8" : "concierge"
+	}
+}
