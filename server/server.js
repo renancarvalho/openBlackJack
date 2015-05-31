@@ -5,8 +5,8 @@ var _ = require('underscore');
 var serveStatic  = require ('serve-static');
 var Game = require('./entites/game.js');
 
-app.use(serveStatic (__dirname + '/client', { 'index': 'index.html' }));
-
+app.use(serveStatic (__dirname + '/front', { 'index': 'index.html' }));
+console.log(__dirname)
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });

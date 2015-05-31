@@ -1,0 +1,21 @@
+{
+  "name": "openblackjack-front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Renan Carvalho <renansscarvalho@gmail.com> (http://www.rcarvalhojs.com)",
+  "license": "ISC",
+  "devDependencies": {
+    "backbone": "^1.2.0",
+    "gulp": "^3.8.11",
+    "gulp-webpack": "^1.4.0",
+    "gulp-webserver": "^0.9.1",
+    "jquery": "^2.1.4",
+    "node-libs-browser": "^0.5.2",
+    "underscore": "^1.8.3",
+    "webpack": "^1.9.10"
+  }
+}
