@@ -1,5 +1,6 @@
 // var cards = require("./cards");
 var _ = require("underscore");
+// var cards = require("./cards")
 var cards = {
 	"A" : {
 		"naipe":"Heart",
@@ -69,8 +70,6 @@ var cards = {
 		"card":"K"
 	}
 };
-
-
 function Game (userName) {
 	if (userName.length > 2)
 		throw "You can only play with two users";
