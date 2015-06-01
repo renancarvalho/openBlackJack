@@ -1,7 +1,9 @@
 var gulp 			= require("gulp");
 var webpack   = require ('gulp-webpack');
 var webserver = require ('gulp-webserver');
+var w         = require ('webpack');
 var PORT 			= 8000;
+
 function onError () {
   this.emit('end');
 };
@@ -14,7 +16,16 @@ gulp.task('webpack', function () {
       },
       resolve: {
         extensions: ['', '.js']
-      }
+      }, 
+      plugins: [
+        new w.ProvidePlugin({
+          $: 'jquery'
+          , jQuery: 'jquery'
+          , _: 'underscore'
+          , Backbone: 'backbone'
+          , io: 'socket.io-client/socket.io.js'
+        })
+      ]
     }))
     .pipe(gulp.dest('build/'));
 });
