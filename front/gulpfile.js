@@ -9,21 +9,26 @@ function onError () {
 };
 
 gulp.task('webpack', function () {
-  return gulp.src('js/main.js')
+  return gulp.src(['js/main.js','js/view/template/*.handlebars'])
     .pipe(webpack({
       output: {
         filename: 'main.js'
       },
       resolve: {
-        extensions: ['', '.js']
+        extensions: ['', '.js', '.json']
       }, 
+      module: {
+        loaders: [
+          { test: /\.handlebars$/, loader: "handlebars-loader" }
+        ]
+      },
       plugins: [
         new w.ProvidePlugin({
-          $: 'jquery'
-          , jQuery: 'jquery'
-          , _: 'underscore'
-          , Backbone: 'backbone'
-          , io: 'socket.io-client/socket.io.js'
+          $: 'jquery',
+          jQuery: 'jquery',
+          _: 'underscore',
+          Backbone: 'backbone',
+          io: 'socket.io-client/socket.io.js'
         })
       ]
     }))
@@ -42,7 +47,7 @@ gulp.task('webserver', function () {
 
 gulp.task('watch', function () {
   gulp.watch('js/**/*.js', ['webpack']);
+  gulp.watch('js/view/template/*.handlebars', ['webpack']);
 });
 
-
-gulp.task('run', ['webpack','watch', 'webserver']);
+gulp.task('run', ['webpack','watch']);

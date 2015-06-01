@@ -79,6 +79,7 @@ function Game (userName) {
 };
 Game.prototype.noMoreCardsForMe = function(user) {
 	this.usersDone.push(user);
+	return this.usersDone.length === 2? true :false;
 };
 Game.prototype.getUserPontuation = function (userName) {
 	var points = 0;

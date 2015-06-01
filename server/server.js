@@ -5,26 +5,40 @@ var _ 						= require('underscore');
 var serveStatic   = require ('serve-static');
 var Game 					= require('./entites/game.js');
 
-app.use(serveStatic (__dirname + '/front', { 'index': 'index.html' }));
-console.log(__dirname)
+app.use(serveStatic ('./' + '../front', { 'index': 'index.html' }));
+
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });
-
+var users = [];
+var game;
 io.on('connection',function(socket){
 	console.log("connected");
-	debugger;
-	var game = new Game(["fake1","fake2"]);
-	socket.on("newGame",function () {
-		Adone = [];
-		users = [];
+	socket.on("clearGame",function (user) {
+		users=[];
+	})
+	socket.on("newGame",function (user) {
+		users.push(user);
+		if (users.length===2){
+			game = new Game(users);
+		}
 	})
 	socket.on("newCard", function(user){
 		console.log(user);
 		socket.emit("card", game.buyCard(user))
 	});
-	socket.on("done",function (user) {
+	 socket.on("done",function (user) {
+		var userRestult  = game.getUserPontuation(user);
+		endgame = game.noMoreCardsForMe(user);
 		socket.emit("end",userRestult);
-		io.sockets.emit("ENDGAME", winnerPoints, winnerName);
-	});
+		if (endgame){
+			var winnerName;
+			if (game.getUserPontuation(game.users[0]) > game.getUserPontuation(game.users[1])){
+				winnerName = game.users[0]
+			}else{
+				winnerName = game.users[1]
+			}
+			io.sockets.emit("ENDGAME", winnerName);
+		}
+	}.bind(this));
 });
