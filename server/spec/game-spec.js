@@ -56,13 +56,20 @@ describe("When the game ends",function () {
 	var winner;
 	beforeEach(function () {
 		game = new Game(["Renan","Thiago"]);
+	});
+	it("Should return the winner name",function () {
 		card1 = game.buyCard(game.users[0]);
 		card2 = game.buyCard(game.users[1]);
 		winner = +card1.value > +card2.value ? card1 : card2;
-	});
-	it("Should return the winner name",function () {
 		var result = game.endGame();
-		console.log(result,"porra")
 		expect(result).toBe(winner.user);
+	});
+
+	it("Should return a draw message if is draw",function () {
+		spyOn(game, "buyCard").andReturn(function(){
+			return "{ 'naipe' : 'Heart', 'value' : 5, 'card' : 5, 'user' : 'Renan'}";
+		});
+		var result = game.endGame();
+		expect(result).toBe("draw");
 	});
 });

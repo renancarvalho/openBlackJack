@@ -133,13 +133,10 @@ Game.prototype.pickRandomCard = function () {
 
 Game.prototype.endGame = function () {
 	var winnerName;
-	if (this.getUserPontuation(this.users[0]) > this.getUserPontuation(this.users[1])){
-		winnerName = this.users[0]
+	if (this.getUserPontuation(this.users[0]) === this.getUserPontuation(this.users[1])){
+		return "draw"
 	}
-	else{
-		winnerName = this.users[1]
-	}
-	return winnerName;
+	return winnerName = this.getUserPontuation(this.users[0]) > this.getUserPontuation(this.users[1]) ? this.users[0] : this.users[1]
 };
 
 module.exports = Game;
