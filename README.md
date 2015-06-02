@@ -14,7 +14,9 @@ Just fork it and create a pull request
 
 ###Next steps?
 
-//TODO:
+* Make the game 'wait' for the next person to play
+* Create tests for models(understando how to do that with socket)
+//More a thousand things
 
 
 ###Want to play?
