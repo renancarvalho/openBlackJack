@@ -1,0 +1,38 @@
+body {
+  background-color: #f4f4f4;
+}
+button {
+  height: 40px;
+  width: 80px;
+}
+.card {
+  width: 150px;
+  background-color: #e7e7e7;
+  height: auto;
+  border-radius: 5px;
+  float: left;
+  margin: 10px 0 0px 10px;
+}
+.card .number {
+  font-size: 50px;
+  color: red;
+  border-bottom: solid 1px white;
+  border-top: solid 1px white;
+}
+.card .right {
+  text-align: right;
+}
+.card .cardSuit {
+  font-size: 50px;
+  text-align: center;
+  color: red;
+}
+.buttons {
+  position: absolute;
+  top: 40%;
+  left: 10px;
+}
+.hand {
+  height: 200px;
+  background-color: green;
+}
