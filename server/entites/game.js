@@ -1,6 +1,8 @@
 // var cards = require("./cards");
 var _ = require("underscore");
 // var cards = require("./cards")
+
+//Todo: remove ir from here.
 var cards = {
 	"A" : {
 		"naipe":"Heart",
@@ -131,12 +133,23 @@ Game.prototype.pickRandomCard = function () {
   return cards[result];
 };
 
-Game.prototype.endGame = function () {
+Game.prototype.getWinner = function () {
+	var user1 = this.users[0];
+	var user2 = this.users[1];
 	var winnerName;
-	if (this.getUserPontuation(this.users[0]) === this.getUserPontuation(this.users[1])){
-		return "draw"
+
+	if (this.getUserPontuation(user1) === this.getUserPontuation(user2)){
+		return winnerName = "draw"
 	}
-	return winnerName = this.getUserPontuation(this.users[0]) > this.getUserPontuation(this.users[1]) ? this.users[0] : this.users[1]
+
+	winnerName = this.getUserPontuation(user1) > this.getUserPontuation(user2) ? user1 : user2
+	this.resetGame();
+	return winnerName;
+};
+
+Game.prototype.resetGame = function () {//receive a game id in the future to reset the correct table`
+	this.userCards = [];
+	this.usersDone = [];
 };
 
 module.exports = Game;

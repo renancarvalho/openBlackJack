@@ -14,10 +14,13 @@ var users = [];
 var game;
 io.on('connection',function(socket){
 	console.log("connected");
-	socket.on("clearGame",function (user) {
+	
+	socket.on("clearGame",function () {
 		users=[];
-	})
+	});
+
 	socket.on("newGame",function (user) {
+		debugger;
 		users.push(user);
 		if (users.length===2){
 			game = new Game(users);
@@ -32,7 +35,7 @@ io.on('connection',function(socket){
 		endgame = game.noMoreCardsForMe(user);
 		socket.emit("end",userRestult);
 		if (endgame){
-			var winnerName = game.endGame();
+			var winnerName = game.getWinner();
 			io.sockets.emit("ENDGAME", winnerName);
 		}
 	}.bind(this));

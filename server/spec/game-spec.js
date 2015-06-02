@@ -59,9 +59,9 @@ describe("When the game ends",function () {
 	});
 	it("Should return the winner name",function () {
 		card1 = game.buyCard(game.users[0]);
-		card2 = game.buyCard(game.users[1]);
+		card2 = game.buyCard(game.users[1]);		
 		winner = +card1.value > +card2.value ? card1 : card2;
-		var result = game.endGame();
+		var result = game.getWinner();
 		expect(result).toBe(winner.user);
 	});
 
@@ -69,7 +69,14 @@ describe("When the game ends",function () {
 		spyOn(game, "buyCard").andReturn(function(){
 			return "{ 'naipe' : 'Heart', 'value' : 5, 'card' : 5, 'user' : 'Renan'}";
 		});
-		var result = game.endGame();
+		var result = game.getWinner();
 		expect(result).toBe("draw");
+	});
+
+	it("Should reset the game",function () {
+		game.buyCard(game.users[0]);
+		game.buyCard(game.users[1]);
+		game.getWinner();
+		expect(game.userCards.length).toBe(0);
 	});
 });
