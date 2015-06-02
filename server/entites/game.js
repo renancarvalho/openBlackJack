@@ -70,6 +70,7 @@ var cards = {
 		"card":"K"
 	}
 };
+
 function Game (userName) {
 	if (userName.length > 2)
 		throw "You can only play with two users";
@@ -77,10 +78,12 @@ function Game (userName) {
 	this.userCards = [];
 	this.usersDone = [];
 };
+
 Game.prototype.noMoreCardsForMe = function(user) {
 	this.usersDone.push(user);
 	return this.usersDone.length === 2? true :false;
 };
+
 Game.prototype.getUserPontuation = function (userName) {
 	var points = 0;
 	this.userCards.filter(function(a){
@@ -91,16 +94,19 @@ Game.prototype.getUserPontuation = function (userName) {
 	});
 	return points;
 };
+
 Game.prototype.canBuyACard = function (user) {
 	for(var i = 0; i < this.usersDone.length; i++) {
 		if (this.usersDone[i] === user)
 			throw "You already closed your hand"
 	}
 	return true;
-}
+};
+
 Game.prototype.getUsers = function () {
 	return this.users;
 };
+
 Game.prototype.buyCard = function(user) {
 	if (this.canBuyACard(user)){
 		var buyedCard = this.pickRandomCard();
@@ -109,10 +115,12 @@ Game.prototype.buyCard = function(user) {
 		return buyedCard;
 	}
 };
+
 Game.prototype.assignCard = function (user, card) {
 	this.userCards.push(card);
 };
-Game.prototype.pickRandomCard = function (argument) {
+
+Game.prototype.pickRandomCard = function () {
 	var result;
 	var count = 0;
 	for (var prop in cards){
@@ -122,4 +130,16 @@ Game.prototype.pickRandomCard = function (argument) {
 	}
   return cards[result];
 };
+
+Game.prototype.endGame = function () {
+	var winnerName;
+	if (this.getUserPontuation(this.users[0]) > this.getUserPontuation(this.users[1])){
+		winnerName = this.users[0]
+	}
+	else{
+		winnerName = this.users[1]
+	}
+	return winnerName;
+};
+
 module.exports = Game;

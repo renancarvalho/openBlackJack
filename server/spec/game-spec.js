@@ -48,5 +48,21 @@ describe("When the user say that is enougth",function () {
 		game.noMoreCardsForMe("Renan");
 		expect(function(){game.buyCard("Renan")}).toThrow("You already closed your hand");
 
-	})
+	});
+});
+
+describe("When the game ends",function () {
+	var game;
+	var winner;
+	beforeEach(function () {
+		game = new Game(["Renan","Thiago"]);
+		card1 = game.buyCard(game.users[0]);
+		card2 = game.buyCard(game.users[1]);
+		winner = +card1.value > +card2.value ? card1 : card2;
+	});
+	it("Should return the winner name",function () {
+		var result = game.endGame();
+		console.log(result,"porra")
+		expect(result).toBe(winner.user);
+	});
 });

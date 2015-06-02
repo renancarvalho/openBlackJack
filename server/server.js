@@ -32,12 +32,7 @@ io.on('connection',function(socket){
 		endgame = game.noMoreCardsForMe(user);
 		socket.emit("end",userRestult);
 		if (endgame){
-			var winnerName;
-			if (game.getUserPontuation(game.users[0]) > game.getUserPontuation(game.users[1])){
-				winnerName = game.users[0]
-			}else{
-				winnerName = game.users[1]
-			}
+			var winnerName = game.endGame();
 			io.sockets.emit("ENDGAME", winnerName);
 		}
 	}.bind(this));
