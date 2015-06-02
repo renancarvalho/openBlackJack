@@ -1,5 +1,4 @@
-// var socket = io();
-var UserView			= require("./view/UserView");
+var UserView = require("./view/UserView");
 
 var Router = Backbone.Router.extend({
 	routes:{
@@ -10,11 +9,6 @@ var Router = Backbone.Router.extend({
 	},
 	newGame: function() {
 		new UserView({el:$("#mainGame")});
-		// this.socket = io.connect('http://127.0.0.1:3000');
-		// this.socket.on("card",function (data) {
-  	// 		// this.renderNewCard(data);
-  	// 	});
-  	// 	this.socket.emit('newCard',"New card");
 	}
 });
 

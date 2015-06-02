@@ -1,4 +1,3 @@
-
 var Backbone 		= require('Backbone');
 var socket	 		= io();
 

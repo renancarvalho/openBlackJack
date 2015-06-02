@@ -1,5 +1,5 @@
-var Backbone 		= require('Backbone');
-var Template 		= require('./template/gameTemplate.handlebars');
+var Backbone 				= require('Backbone');
+var Template 				= require('./template/gameTemplate.handlebars');
 var CardTemplate 		= require('./template/card.handlebars');
 
 module.exports = Backbone.View.extend({
