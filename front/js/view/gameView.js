@@ -38,4 +38,3 @@ module.exports = Backbone.View.extend({
 		this.render();
 	}
 });
-

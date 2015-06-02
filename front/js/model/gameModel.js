@@ -6,7 +6,7 @@ var socket	 						= io();
 
 module.exports = Backbone.Model.extend({
 	initialize:function (argument) {
-		this.socket = io.connect('https://30c7ae5d.ngrok.com');
+		this.socket = io.connect('http://127.0.0.1:3000');
 		this.collection = new HandCollection();
 		this.listeningEvents()
 		this.socket.emit('newGame',this.get("user"));
@@ -26,14 +26,13 @@ module.exports = Backbone.Model.extend({
 		}.bind(this));
 	},
 	buyNewCard:function () {
-
 		this.socket.emit('newCard',this.get("user"));
 	},
 	done:function () {
 		this.socket.emit('done',this.get("user"));
 	},
 	newGame:function () {
-		this.socket.emit('clearGame',this.get("user"));
+		this.socket.emit('clearGame');
 	}
 });
 
