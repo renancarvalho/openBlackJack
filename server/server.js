@@ -20,7 +20,6 @@ io.on('connection',function(socket){
 	});
 
 	socket.on("newGame",function (user) {
-		debugger;
 		users.push(user);
 		if (users.length===2){
 			game = new Game(users);
