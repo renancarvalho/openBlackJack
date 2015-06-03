@@ -14,6 +14,10 @@ module.exports = Backbone.Model.extend({
 			this.trigger('newCard',data);
 		}.bind(this));
 
+		this.socket.on("opponent:newCard",function (data) {
+			this.trigger("opponent:buyedNewCard")
+		}.bind(this));
+
 
 		this.socket.on("fullhand",function (msg) {
 			this.trigger('fullhand',msg);

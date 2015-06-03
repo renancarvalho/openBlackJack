@@ -1,6 +1,7 @@
-var Backbone 				= require('Backbone');
-var Template 				= require('./template/gameTemplate.handlebars');
-var CardTemplate 		= require('./template/card.handlebars');
+var Backbone 						= require('Backbone');
+var Template 						= require('./template/gameTemplate.handlebars');
+var CardTemplate 				= require('./template/card.handlebars');
+var FakeCardTemplate 		= require('./template/fakeCard.handlebars');
 
 module.exports = Backbone.View.extend({
 	initialize: function (options) {
@@ -10,6 +11,7 @@ module.exports = Backbone.View.extend({
 		this.model.on('pontuation', this.renderPontuation, this);
 		this.model.on('showWinner', this.renderWinner, this);
 		this.model.on('fullhand', this.renderServerMsg, this);
+		this.model.on('opponent:buyedNewCard', this.renderOpponentCard, this);
 		this.render();
 	},
 	events: {
@@ -35,6 +37,10 @@ module.exports = Backbone.View.extend({
 		$('h2').append(pontuation)
 		$("#newCard").hide();
 		$("#done").hide();
+	},
+	renderOpponentCard:function (argument) {
+		debugger;
+		$("#otherCards").append(FakeCardTemplate())
 	},
 	renderWinner:function (winner, pontuation) {
 		alert(winner +" with "+ pontuation +" points ");
