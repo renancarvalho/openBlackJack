@@ -35,14 +35,14 @@ io.on('connection',function(socket){
 			socket.emit("card", newCard)	
 		}
 	});
-	
+
 	 socket.on("done",function (user) {
 		var userRestult  = game.getUserPontuation(user);
 		endgame = game.noMoreCardsForMe(user);
 		socket.emit("end",userRestult);
 		if (endgame){
 			var winnerName = game.getWinner();
-			io.sockets.emit("ENDGAME", winnerName);
+			io.sockets.emit("ENDGAME", winnerName, userRestult);
 		}
 	}.bind(this));
 });
