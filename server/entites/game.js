@@ -46,7 +46,7 @@ Game.prototype.buyCard = function(user) {
 		this.checkIfIsOver(user);
 		return buyedCard;
 	}
-	this.noMoreCardsForMe(users)
+	this.noMoreCardsForMe(user)
 	return "This user cannot buy more cards in this turn."
 };
 
