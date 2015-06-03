@@ -42,7 +42,7 @@ module.exports = Backbone.View.extend({
 		$("#otherCards").append(FakeCardTemplate())
 	},
 	renderWinner:function (winner, pontuation) {
-		alert(winner +" with "+ pontuation +" points ");
+		alert(winner +" won "+ pontuation +" points ");
 		this.model.newGame();
 		this.render();
 	}

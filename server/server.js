@@ -17,11 +17,11 @@ var people = [];
 io.on('connection',function(socket){
 	console.log("connected");
 	
-	socket.on("clearGame",function () {
+	socket.on("game:clearGame",function () {
 		users=[];
 	});
 
-	socket.on("newGame",function (user) {
+	socket.on("game:newGame",function (user) {
 		people.push(socket);
 		console.log("connected", user);
 		users.push(user);
@@ -30,12 +30,12 @@ io.on('connection',function(socket){
 		}
 	});
 
-	socket.on("newCard", function(user){
+	socket.on("player:newCard", function(user){
 		var newCard = game.buyCard(user)
 		//testing how to send message to a specific client. this must be refactored.
-		console.log(user,"buying card")
+		console.log(user, "buying card")
 		if (typeof(newCard)==='string'){
-			socket.emit("fullhand",newCard)	
+			socket.emit("player:fullHand",newCard)	
 		}else {
 			var index = people.indexOf(socket);
 			if(index===1){
@@ -43,17 +43,17 @@ io.on('connection',function(socket){
 			}else{
 				people[1].emit("opponent:newCard");
 			}
-			socket.emit("card", newCard)	
+			socket.emit("player:newCard", newCard)	
 		}
 	});
 
-	 socket.on("done",function (user) {
-		var userRestult  = game.getUserPontuation(user);
+	 socket.on("player:done",function (user) {
+		var userPontuation  = game.getUserPontuation(user);
 		endgame = game.noMoreCardsForMe(user);
-		socket.emit("end",userRestult);
+		socket.emit("player:noMoreCards",userPontuation);
 		if (endgame){
 			var winnerName = game.getWinner();
-			io.sockets.emit("ENDGAME", winnerName, userRestult);
+			io.sockets.emit("game:endGame", winnerName, userPontuation);
 		}
 	}.bind(this));
 });
