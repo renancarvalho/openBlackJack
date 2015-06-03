@@ -85,17 +85,30 @@ describe("When the game ends",function () {
 
 describe("When user hit more than 21 points",function () {
 	var game;
-	var winner;
+	var cards;
 	beforeEach(function () {
 		game = new Game(["Renan","Thiago"]);
 		spyOn(game, "pickRandomCard").andCallFake(function(){
-			return {'naipe':'Heart', 'value':'11', 'card':2, 'user':'Renan'},{'naipe':'Heart', 'value':'11', 'card':2, 'user':'Renan'}
+			return {'naipe':'Heart', 'value':'12', 'card':2, 'user':'Renan'},{'naipe':'Heart', 'value':'11', 'card':2, 'user':'Renan'}
+		});
+
+		cards = game.buyCard(game.users[0]);
+		cards += game.buyCard(game.users[0]);
+		cards += game.buyCard(game.users[0]);
+
+		spy = spyOn(game, "canBuyACard").andCallFake(function () {
+			//just return false if the user hits more than 21 points
+			if (cards.length>2){
+				return false;
+			}
 		});
 	});
 
 	it("Should not be able to buy more cards",function () {
+		//trying to buy more than 21 points
 		game.buyCard(game.users[0]);
 		game.buyCard(game.users[0]);
-		expect(function(){game.buyCard(game.users[0])}).toThrow("You can not buy another card in this turn");
+		game.buyCard(game.users[0]);
+		expect(game.userCards.length).toBe(3);
 	});
 });

@@ -24,11 +24,18 @@ io.on('connection',function(socket){
 		if (users.length===2){
 			game = new Game(users);
 		}
-	})
-	socket.on("newCard", function(user){
-		console.log(user);
-		socket.emit("card", game.buyCard(user))
 	});
+
+	socket.on("newCard", function(user){
+		console.log(user, "buying a new card");
+		var newCard = game.buyCard(user)
+		if (typeof(newCard)==='string'){
+			socket.emit("fullhand",newCard)	
+		}else {
+			socket.emit("card", newCard)	
+		}
+	});
+	
 	 socket.on("done",function (user) {
 		var userRestult  = game.getUserPontuation(user);
 		endgame = game.noMoreCardsForMe(user);
