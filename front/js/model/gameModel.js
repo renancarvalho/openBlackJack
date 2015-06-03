@@ -15,7 +15,7 @@ module.exports = Backbone.Model.extend({
 		}.bind(this));
 
 		this.socket.on("opponent:newCard",function (data) {
-			this.trigger("opponent:buyedNewCard")
+			this.trigger("opponent:boughtNewCard")
 		}.bind(this));
 
 

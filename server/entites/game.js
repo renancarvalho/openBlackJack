@@ -40,11 +40,11 @@ Game.prototype.getUsers = function () {
 
 Game.prototype.buyCard = function(user) {
 	if (this.canBuyACard(user)){
-		var buyedCard = this.pickRandomCard();
-		buyedCard.user = user;
-		this.assignCard(user, buyedCard);
+		var boughtCard = this.pickRandomCard();
+		boughtCard.user = user;
+		this.assignCard(user, boughtCard);
 		this.checkIfIsOver(user);
-		return buyedCard;
+		return boughtCard;
 	}
 	this.noMoreCardsForMe(user)
 	return "This user cannot buy more cards in this turn."
