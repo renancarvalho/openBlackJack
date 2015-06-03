@@ -19,5 +19,5 @@ Just fork it and create a pull request
 //More a thousand things
 
 
-###Want to play?
-Well the game is not ready, so help us :)
+###How to play?
+Well the game is not ready, but you can play it running the project locally.

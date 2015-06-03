@@ -11,7 +11,7 @@ module.exports = Backbone.View.extend({
 		this.model.on('pontuation', this.renderPontuation, this);
 		this.model.on('showWinner', this.renderWinner, this);
 		this.model.on('fullhand', this.renderServerMsg, this);
-		this.model.on('opponent:buyedNewCard', this.renderOpponentCard, this);
+		this.model.on('opponent:boughtNewCard', this.renderOpponentCard, this);
 		this.render();
 	},
 	events: {
@@ -38,8 +38,7 @@ module.exports = Backbone.View.extend({
 		$("#newCard").hide();
 		$("#done").hide();
 	},
-	renderOpponentCard:function (argument) {
-		debugger;
+	renderOpponentCard:function () {
 		$("#otherCards").append(FakeCardTemplate())
 	},
 	renderWinner:function (winner, pontuation) {

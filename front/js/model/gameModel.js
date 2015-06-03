@@ -18,12 +18,10 @@ module.exports = Backbone.Model.extend({
 			this.trigger("opponent:boughtNewCard")
 		}.bind(this));
 
-
 		this.socket.on("fullhand",function (msg) {
 			this.trigger('fullhand',msg);
 		}.bind(this));
 		
-
 		this.socket.on("ENDGAME",function (name, pontuation) {
 			this.trigger('showWinner', name, pontuation);
 		}.bind(this));
