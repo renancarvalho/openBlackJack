@@ -51,9 +51,10 @@ Game.prototype.buyCard = function(user) {
 };
 
 Game.prototype.checkIfIsOver = function (user) {
-	if (this.getUserPontuation(user)>21){
-		return false
-	}
+	//turn this on after
+	// if (this.getUserPontuation(user)>21){
+	// 	return false
+	// }
 	return true
 };
 
