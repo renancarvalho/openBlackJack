@@ -9,6 +9,7 @@ module.exports = Backbone.View.extend({
 		this.model.on('newCard', this.renderCard, this);
 		this.model.on('pontuation', this.renderPontuation, this);
 		this.model.on('showWinner', this.renderWinner, this);
+		this.model.on('fullhand', this.renderServerMsg, this);
 		this.render();
 	},
 	events: {
@@ -27,13 +28,16 @@ module.exports = Backbone.View.extend({
 	renderCard:function (card) {
 		$('#cards').append(CardTemplate(card))
 	},
+	renderServerMsg:function (msg) {
+		this.$(".msg").html(msg);
+	},
 	renderPontuation:function (pontuation) {
 		$('h2').append(pontuation)
 		$("#newCard").hide();
 		$("#done").hide();
 	},
-	renderWinner:function (winner) {
-		alert(winner);
+	renderWinner:function (winner, pontuation) {
+		alert(winner +" with "+ pontuation +" points ");
 		this.model.newGame();
 		this.render();
 	}
