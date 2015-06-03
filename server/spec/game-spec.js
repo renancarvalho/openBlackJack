@@ -11,7 +11,7 @@ describe("When creating a new game",function () {
 		expect(users[0]).toBe("Renan");
 	});
 	it("Should accept only two players", function(){
-		expect(function(){game = new Game(["Renan","Thiago","Andrea"]);}).toThrow("You can only play with two users");
+		expect(function(){game = new Game(["Renan","Thiago","Andrea"])}).toThrow("You can only play with two users");
 	});
 });
 
@@ -57,6 +57,7 @@ describe("When the game ends",function () {
 	beforeEach(function () {
 		game = new Game(["Renan","Thiago"]);
 	});
+
 	it("Should return the winner name",function () {
 		card1 = game.buyCard(game.users[0]);
 		card2 = game.buyCard(game.users[1]);		
@@ -78,5 +79,23 @@ describe("When the game ends",function () {
 		game.buyCard(game.users[1]);
 		game.getWinner();
 		expect(game.userCards.length).toBe(0);
+	});
+
+});
+
+describe("When user hit more than 21 points",function () {
+	var game;
+	var winner;
+	beforeEach(function () {
+		game = new Game(["Renan","Thiago"]);
+		spyOn(game, "pickRandomCard").andCallFake(function(){
+			return {'naipe':'Heart', 'value':'11', 'card':2, 'user':'Renan'},{'naipe':'Heart', 'value':'11', 'card':2, 'user':'Renan'}
+		});
+	});
+
+	it("Should not be able to buy more cards",function () {
+		game.buyCard(game.users[0]);
+		game.buyCard(game.users[0]);
+		expect(function(){game.buyCard(game.users[0])}).toThrow("You can not buy another card in this turn");
 	});
 });

@@ -99,8 +99,12 @@ Game.prototype.getUserPontuation = function (userName) {
 
 Game.prototype.canBuyACard = function (user) {
 	for(var i = 0; i < this.usersDone.length; i++) {
-		if (this.usersDone[i] === user)
+		if (this.usersDone[i] === user){
 			throw "You already closed your hand"
+		}
+	}
+	if (this.getUserPontuation(user)>21){
+		throw "You can not buy another card in this turn"
 	}
 	return true;
 };
@@ -126,9 +130,9 @@ Game.prototype.pickRandomCard = function () {
 	var result;
 	var count = 0;
 	for (var prop in cards){
-	    if (Math.random() < 1/++count){
-	       result = prop;
-	    }
+    if (Math.random() < 1/++count){
+       result = prop;
+    }
 	}
   return cards[result];
 };
