@@ -36,13 +36,10 @@ io.on('connection',function(socket){
 		console.log(user, "buying card")
 		if (typeof(newCard)==='string'){
 			socket.emit("player:fullHand",newCard)	
-		}else {
-			var index = people.indexOf(socket);
-			if(index===1){
-				people[0].emit("opponent:newCard");
-			}else{
-				people[1].emit("opponent:newCard");
-			}
+		}
+		else {
+			var opponent = _.without(people, socket);
+			opponent[0].emit("opponent:newCard");
 			socket.emit("player:newCard", newCard)	
 		}
 	});
