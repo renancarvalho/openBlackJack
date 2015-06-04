@@ -3,6 +3,8 @@ var Template 						= require('./template/gameTemplate.handlebars');
 var CardTemplate 				= require('./template/card.handlebars');
 var FakeCardTemplate 		= require('./template/fakeCard.handlebars');
 
+
+//decouple this view, this is just testing..
 module.exports = Backbone.View.extend({
 	initialize: function (options) {
 		this.model = options.model;
@@ -28,18 +30,19 @@ module.exports = Backbone.View.extend({
 		this.$el.html(Template(this.model.toJSON()))
 	},
 	renderCard:function (card) {
-		$('#cards').append(CardTemplate(card))
+		this.$('#cards').append(CardTemplate(card))
 	},
 	renderServerMsg:function (msg) {
 		this.$(".msg").html(msg);
 	},
 	renderPontuation:function (pontuation) {
-		$('h2').append(pontuation)
-		$("#newCard").hide();
-		$("#done").hide();
+		this.$('h2').append(pontuation)
+		this.$("#newCard").hide();
+		this.$("#done").hide();
 	},
 	renderOpponentCard:function () {
-		$("#otherCards").append(FakeCardTemplate())
+		debugger;
+		this.$("#otherCards").append(FakeCardTemplate())
 	},
 	renderWinner:function (winner, pontuation) {
 		alert(winner +" won "+ pontuation +" points ");

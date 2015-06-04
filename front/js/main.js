@@ -1,2 +1,2 @@
-var Router = require("./Router")
+var Router = require("./Router");
 new Router();
