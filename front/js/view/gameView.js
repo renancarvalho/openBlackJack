@@ -1,4 +1,5 @@
 var Backbone 						= require('Backbone');
+var _ 									= require('underscore');
 var Template 						= require('./template/gameTemplate.handlebars');
 var CardTemplate 				= require('./template/card.handlebars');
 var FakeCardTemplate 		= require('./template/fakeCard.handlebars');
@@ -13,7 +14,8 @@ module.exports = Backbone.View.extend({
 		this.model.on('pontuation', this.renderPontuation, this);
 		this.model.on('showWinner', this.renderWinner, this);
 		this.model.on('fullhand', this.renderServerMsg, this);
-		this.model.on('opponent:boughtNewCard', this.renderOpponentCard, this);
+		this.model.on('boughtNewCard', this.renderOpponentCard, this);
+		this.model.on('usersInGame', this.renderUsers, this);
 		this.render();
 	},
 	events: {
@@ -41,12 +43,16 @@ module.exports = Backbone.View.extend({
 		this.$("#done").hide();
 	},
 	renderOpponentCard:function () {
-		debugger;
 		this.$("#otherCards").append(FakeCardTemplate())
 	},
 	renderWinner:function (winner, pontuation) {
 		alert(winner +" won "+ pontuation +" points ");
 		this.model.newGame();
 		this.render();
+	},
+	renderUsers:function (users) {
+		var index = users.indexOf(this.model.get('user'));
+		users.splice(index,1);
+		this.$("#opponentName").html(users + "'s Cards ")
 	}
 });

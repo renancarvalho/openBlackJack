@@ -28,21 +28,20 @@ button {
   color: red;
 }
 .buttons {
-  position: absolute;
-  top: 40%;
-  left: 10px;
+  position: relative;
+  margin-top: 10px;
 }
 .table {
   height: 200px;
   background-color: green;
-}
-.other {
-  margin-top: 220px;
-  position: relative;
 }
 .fakeCard {
   width: 150px;
   background-color: #e7e7e7;
   height: 175px;
   border-radius: 5px;
+}
+.opponentCard {
+  position: relative;
+  margin-top: 90px;
 }

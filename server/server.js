@@ -27,20 +27,20 @@ io.on('connection',function(socket){
 		users.push(user);
 		if (users.length === 2){
 			game = new Game(users);
+			io.sockets.emit("game:users",users);
 		}
 	});
 
 	socket.on("player:newCard", function(user){
-		var newCard = game.buyCard(user)
-		//testing how to send message to a specific client. this must be refactored.
-		console.log(user, "buying card")
+		console.log(user, "buying card");
+		var newCard = game.buyCard(user);
 		if (typeof(newCard)==='string'){
 			socket.emit("player:fullHand",newCard)	
 		}
 		else {
-			var opponent = _.without(people, socket);
+			var opponent = getOpponent(socket);
 			opponent[0].emit("opponent:newCard");
-			socket.emit("player:newCard", newCard)	
+			socket.emit("player:newCard", newCard);	
 		}
 	});
 
@@ -54,3 +54,8 @@ io.on('connection',function(socket){
 		}
 	}.bind(this));
 });
+
+function getOpponent (opponent) {
+	var opponentUser = _.without(people, opponent);
+	return opponentUser;
+};

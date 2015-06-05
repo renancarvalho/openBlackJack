@@ -4,18 +4,18 @@ var socket	 						= io();
 
 
 module.exports = Backbone.Model.extend({
-	initialize:function (argument) {
+	initialize:function () {
 		this.socket = io.connect('http://127.0.0.1:3000');
 		this.listeningEvents()
 		this.socket.emit('game:newGame',this.get("user"));
 	},
-	listeningEvents:function (argument) {
-		this.socket.on("player:newCard",function (data) {
-			this.trigger('newCard',data);
+	listeningEvents:function () {
+		this.socket.on("player:newCard",function (card) {
+			this.trigger('newCard',card);
 		}.bind(this));
 
 		this.socket.on("opponent:newCard",function (data) {
-			this.trigger("opponent:boughtNewCard")
+			this.trigger("boughtNewCard")
 		}.bind(this));
 
 		this.socket.on("player:fullHand",function (msg) {
@@ -28,6 +28,10 @@ module.exports = Backbone.Model.extend({
 
 		this.socket.on("player:noMoreCards",function (data) {
 			this.trigger('pontuation',data)
+		}.bind(this));
+
+		this.socket.on("game:users",function (users) {
+			this.trigger('usersInGame',users);
 		}.bind(this));
 	},
 	buyNewCard:function () {
