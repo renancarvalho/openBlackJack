@@ -51,6 +51,7 @@ module.exports = Backbone.View.extend({
 		this.render();
 	},
 	renderUsers:function (users) {
+		this.$(".buttons").removeClass('hidden')
 		var index = users.indexOf(this.model.get('user'));
 		users.splice(index,1);
 		this.$("#opponentName").html(users + "'s Cards ")
