@@ -1,4 +1,4 @@
-var Game = require("../entites/game.js");
+var Game = require("../entites/game");
 
 describe("When creating a new game",function () {
 	var game ;
