@@ -4,11 +4,13 @@ var socket	 						= io();
 
 
 module.exports = Backbone.Model.extend({
-	initialize:function () {
+	start:function () {
 		this.socket = io.connect('http://127.0.0.1:3000');
 		this.listeningEvents()
-		this.socket.emit('game:newGame',this.get("user"));
+		debugger
+		this.socket.emit('game:newGame',this.get("user"), this.get('room'));
 	},
+
 	listeningEvents:function () {
 		this.socket.on("player:newCard",function (card) {
 			this.trigger('newCard',card);
@@ -35,10 +37,10 @@ module.exports = Backbone.Model.extend({
 		}.bind(this));
 	},
 	buyNewCard:function () {
-		this.socket.emit('player:newCard',this.get("user"));
+		this.socket.emit('player:newCard',this.get("user"),this.get('room'));
 	},
 	done:function () {
-		this.socket.emit('player:done',this.get("user"));
+		this.socket.emit('player:done',this.get("user"),this.get('room'));
 	},
 	newGame:function () {
 		this.socket.emit('game:clearGame');

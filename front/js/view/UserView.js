@@ -7,10 +7,15 @@ var UserView = Backbone.View.extend({
 	initialize: function (options) {
 		this.el = options.el;		
 		this.render();
+		this.model = new Model();
 	},
 	events: {
 		"click #play":"newGame",
-		"change #user":"setName"
+		"change #user":"setName",
+		"change #room":"setRoom"
+	},
+	setRoom: function (e) {
+		this.model.set(e.target.name, e.target.value);
 	},
 	render: function () {
 		this.$el.html(Template());	
@@ -19,7 +24,7 @@ var UserView = Backbone.View.extend({
 		new GameView({model: this.model, el:$("#mainGame")})
 	},
 	setName:function (e) {
-		this.model = new Model({"user":e.target.value.toString()});
+		this.model.set(e.target.name, e.target.value);
 	}
 });
 

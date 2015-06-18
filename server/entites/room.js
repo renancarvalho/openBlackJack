@@ -7,13 +7,14 @@ function Room (user) {
 
 Room.prototype.addUserToSpecificRoom = function (user, roomName) {
 	var room;
-	this.checkIfRoomIsFull();
+	// this.checkIfRoomIsFull();
+	var roomInfo = this.getRoomInfo(roomName);
 
-	if (this.getRoomInfo(roomName).usersCount === 0) {
+	if (roomInfo.usersCount === 0) {
 		room = {"roomName":roomName, "users":[user]}
 		this.rooms.push(room);
 	} 
-	else
+	if (roomInfo.usersCount === 1) 
 	{
 		this.addUserToRoom(user, roomName);
 	}
@@ -28,12 +29,14 @@ Room.prototype.addUserToRoom = function (user,roomName) {
 };
 
 Room.prototype.getRoomInfo = function (roomName) {
+
 	var info = {"usersCount": 0};
 	_.each(this.rooms, function (item) {
 		if(item.roomName === roomName) {
 			info = {"usersCount": item.users.length}
 		}
 	});
+	console.log("infoooooo", info);
 	return info;
 };
 

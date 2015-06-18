@@ -9,6 +9,7 @@ var FakeCardTemplate 		= require('./template/fakeCard.handlebars');
 module.exports = Backbone.View.extend({
 	initialize: function (options) {
 		this.model = options.model;
+		this.model.start();
 		this.el = options.el;
 		this.model.on('newCard', this.renderCard, this);
 		this.model.on('pontuation', this.renderPontuation, this);
