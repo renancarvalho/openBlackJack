@@ -5,47 +5,59 @@ module.exports = function (io, Room){
 
 	var game;
 	var room;
+	var usersSocket =[];
 
 	io.sockets.on('connection',function(socket){
 		console.log("connected");
 
-
 		socket.on("game:newGame",function (user, roomName) {
-			var usersInRoom = Room.addUserToSpecificRoom(user, roomName);
+			var usersInRoom = Room.addUserToSpecificRoom(user, roomName,socket);
 			users = Room.getUsersInRoom(roomName)
+			usersSocket.push({"socket":socket, "roomName":roomName});
 			socket.join(roomName)
-			if (users.length === 2){
+			if (users.length === 2) {
 				game = new Game(users); 	
 				io.to(roomName).emit('game:users', users);
 			}
 		});
 
-	// 	socket.on("player:newCard", function(user, roomName){
-	// 		console.log(user, "buying card");
-	// 		var newCard = game.buyCard(user);
-	// 		if (typeof(newCard)==='string'){
-	// 			socket.emit("player:fullHand",newCard)	
-	// 		}
-	// 		else {
-	// 			var opponent = getOpponent(socket);
-	// 			opponent[0].emit("opponent:newCard");
-	// 			socket.emit("player:newCard", newCard);	
-	// 		}
-	// 	});
+		socket.on("player:newCard", function(user, roomName){
+			console.log(user, "buying card");
+			var newCard = game.buyCard(user);
+			if (typeof(newCard)==='string') {
+				socket.emit("player:fullHand",newCard)	
+			}
+			else {
+				var sockets = getSocketsInRoom(roomName)
+				var opponent = getOpponent(sockets,socket);
+				opponent[0].emit("opponent:newCard");
+				socket.emit("player:newCard", newCard);	
+			}
+		});
 
-	// 	 socket.on("player:done",function (user, roomName) {
-	// 		var userPontuation  = game.getUserPontuation(user);
-	// 		endgame = game.noMoreCardsForMe(user);
-	// 		socket.emit("player:noMoreCards",userPontuation);
-	// 		if (endgame){
-	// 			var winnerName = game.getWinner();
-	// 			io.sockets.emit("game:endGame", winnerName, userPontuation);
-	// 		}
-	// 	}.bind(this));
+		 socket.on("player:done",function (user, roomName) {
+			var userPontuation  = game.getUserPontuation(user);
+			endgame = game.noMoreCardsForMe(user);
+			socket.emit("player:noMoreCards", userPontuation);
+			if (endgame){
+				var winnerName = game.getWinner();
+				io.to(roomName).emit('game:endGame', winnerName, userPontuation);
+			}
+		}.bind(this));
 	});
 
-	// function getOpponent (opponent) {
-	// 	var opponentUser = _.without(people, opponent);
-	// 	return opponentUser;
-	// };
+	function getSocketsInRoom (roomName) {
+		var socketUser = [];
+		_.each(usersSocket,function (item) {
+			if (item.roomName === roomName) {
+				socketUser.push(item.socket);
+			}
+		});
+		return socketUser;
+	};
+
+	function getOpponent (sockets,opponent) {
+		var opponentUser = _.without(sockets, opponent);
+		return opponentUser;
+	};
 }

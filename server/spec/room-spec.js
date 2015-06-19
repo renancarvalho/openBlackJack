@@ -20,7 +20,7 @@ describe("When a room is created",function () {
 	it("Should not be able to more than two users to a specific room",function () {
 		room.addUserToSpecificRoom('user1','room1');
 		room.addUserToSpecificRoom('user2','room1');
-		expect(function(){room.addUserToSpecificRoom('user3','room1')}).toThrow("Full Room");
+		expect(function(){room.addUserToSpecificRoom('user3','room1')}).toThrow("This room is full please select another one");
 	});
 
 })
