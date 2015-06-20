@@ -11,8 +11,8 @@ var Room 					= require('./server/entites/room.js');
 app.use("/front", express.static(__dirname + '/front'));
 
 var room = new Room();
-
-http.listen(3000, function(){
+var port = process.env.PORT || 3000;
+http.listen(port, function(){
   console.log('listening on *:3000');
 });
 
