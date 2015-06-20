@@ -30,6 +30,7 @@ module.exports = Backbone.View.extend({
 		this.model.done();
 	},
 	render:function () {
+		debugger;
 		this.$el.html(Template(this.model.toJSON()))
 	},
 	renderCard:function (card) {
@@ -49,7 +50,10 @@ module.exports = Backbone.View.extend({
 	renderWinner:function (winner, pontuation) {
 		alert(winner +" won "+ pontuation +" points ");
 		this.model.newGame();
+		this.$("#newCard").show();
+		this.$("#done").show();
 		this.render();
+		
 	},
 	renderUsers:function (users) {
 		this.$(".buttons").removeClass('hidden')

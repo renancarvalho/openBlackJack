@@ -7,7 +7,6 @@ module.exports = Backbone.Model.extend({
 	start:function () {
 		this.socket = io.connect('http://127.0.0.1:3000');
 		this.listeningEvents()
-		debugger
 		this.socket.emit('game:newGame',this.get("user"), this.get('room'));
 	},
 
