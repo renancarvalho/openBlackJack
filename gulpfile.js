@@ -63,3 +63,4 @@ gulp.task('watch', function () {
 });
 
 gulp.task('run', ['webpack','watch','less']);
+gulp.task('build', ['webpack','less']);
