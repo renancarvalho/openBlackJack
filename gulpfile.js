@@ -12,7 +12,7 @@ function onError () {
 
 
 gulp.task('less', function () {
-  return gulp.src('style/*.less')
+  return gulp.src('front/style/*.less')
     .pipe(less({
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
@@ -20,7 +20,7 @@ gulp.task('less', function () {
 });
 
 gulp.task('webpack', function () {
-  return gulp.src(['js/main.js','js/view/template/*.handlebars'])
+  return gulp.src(['front/js/main.js','front/js/view/template/*.handlebars'])
     .pipe(webpack({
       output: {
         filename: 'main.js'
@@ -57,9 +57,9 @@ gulp.task('webserver', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch('js/**/*.js', ['webpack']);
-  gulp.watch('style/**/*.less', ['less']);
-  gulp.watch('js/view/template/*.handlebars', ['webpack']);
+  gulp.watch('front/js/**/*.js', ['webpack']);
+  gulp.watch('front/style/**/*.less', ['less']);
+  gulp.watch('front/js/view/template/*.handlebars', ['webpack']);
 });
 
 gulp.task('run', ['webpack','watch','less']);

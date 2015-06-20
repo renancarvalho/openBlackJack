@@ -30,7 +30,6 @@ module.exports = Backbone.View.extend({
 		this.model.done();
 	},
 	render:function () {
-		debugger;
 		this.$el.html(Template(this.model.toJSON()))
 	},
 	renderCard:function (card) {
