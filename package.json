@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jasmine-node spec --autotest --color --verbose --watch .",
-    "start": "node server.js",
-    "postinstall": "gulp build"
+    "start": "node server.js"
   },
   "author": "Renan Carvalho",
   "license": "ISC",
