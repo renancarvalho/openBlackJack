@@ -8,7 +8,7 @@ function Room (user) {
 
 Room.prototype.addUserToSpecificRoom = function (user, roomName,socket) {
 	var room;
-	this.checkIfRoomIsFull();
+	this.checkIfRoomIsFull(roomName);
 	var roomInfo = this.getRoomInfo(roomName);
 
 	if (roomInfo.usersCount === 0) {

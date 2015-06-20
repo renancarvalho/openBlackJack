@@ -15302,7 +15302,8 @@
 
 	module.exports = Backbone.Model.extend({
 		start:function () {
-			this.socket = io.connect('https://infinite-citadel-7060.herokuapp.com');
+			// this.socket = io.connect('https://infinite-citadel-7060.herokuapp.com');
+			this.socket = io.connect('http://localhost:3000');
 			this.listeningEvents()
 			this.socket.emit('game:newGame',this.get("user"), this.get('room'));
 		},
