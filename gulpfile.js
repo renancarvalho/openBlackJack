@@ -16,7 +16,7 @@ gulp.task('less', function () {
     .pipe(less({
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
-    .pipe(gulp.dest('style/'));
+    .pipe(gulp.dest('front/style/'));
 });
 
 gulp.task('webpack', function () {
