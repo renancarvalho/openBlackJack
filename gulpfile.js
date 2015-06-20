@@ -43,7 +43,7 @@ gulp.task('webpack', function () {
         })
       ]
     }))
-    .pipe(gulp.dest('build/'));
+    .pipe(gulp.dest('front/build/'));
 });
 
 
