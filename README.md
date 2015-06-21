@@ -9,8 +9,10 @@ Just fork it and create a pull request.
 If you could help me with the layout and css, would be awesome :)
 
 ### How to run?
-1st - `npm install` 
-2nd - go to `/server` and type `nodemon app.js`
+1st - `npm install`.
+
+2nd - go to `/server` and type `nodemon app.js`.
+
 3rd - go to `/fron` and type `gulp run`
 
 ### How to run the tests?
