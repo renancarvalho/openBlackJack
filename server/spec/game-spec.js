@@ -58,12 +58,14 @@ describe("When the game ends",function () {
 		game = new Game(["Renan","Thiago"]);
 	});
 
-	it("Should return the winner name",function () {
+	it("Should return the winner game and pontuation",function () {
 		card1 = game.buyCard(game.users[0]);
 		card2 = game.buyCard(game.users[1]);		
+		console.log(game.userCards)
 		winner = +card1.value > +card2.value ? card1 : card2;
 		var result = game.getWinner();
-		expect(result).toBe(winner.user);
+		expect(result.winnerName).toBe(winner.user);
+		expect(result.winnerPontuation).toBe(+winner.value);
 	});
 
 	it("Should return a draw message if is draw",function () {

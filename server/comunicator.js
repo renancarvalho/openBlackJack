@@ -40,8 +40,8 @@ module.exports = function (io, Room){
 			endgame = game.noMoreCardsForMe(user);
 			socket.emit("player:noMoreCards", userPontuation);
 			if (endgame){
-				var winnerName = game.getWinner();
-				io.to(roomName).emit('game:endGame', winnerName, userPontuation);
+				var winner = game.getWinner();
+				io.to(roomName).emit('game:endGame', winner);
 			}
 		}.bind(this));
 	});

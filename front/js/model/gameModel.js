@@ -24,8 +24,8 @@ module.exports = Backbone.Model.extend({
 			this.trigger('fullhand',msg);
 		}.bind(this));
 		
-		this.socket.on("game:endGame",function (name, pontuation) {
-			this.trigger('showWinner', name, pontuation);
+		this.socket.on("game:endGame",function (winner) {
+			this.trigger('showWinner', winner.winnerName, winner.winnerPontuation);
 		}.bind(this));
 
 		this.socket.on("player:noMoreCards",function (data) {
