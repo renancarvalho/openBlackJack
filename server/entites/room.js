@@ -3,10 +3,9 @@ var _ 		= require('underscore');
 
 function Room (user) {
 	this.rooms = [];
-	this.sockets = [];
 }
 
-Room.prototype.addUserToSpecificRoom = function (user, roomName,socket) {
+Room.prototype.addUserToSpecificRoom = function (user, roomName) {
 	var room;
 	this.checkIfRoomIsFull(roomName);
 	var roomInfo = this.getRoomInfo(roomName);
@@ -14,13 +13,10 @@ Room.prototype.addUserToSpecificRoom = function (user, roomName,socket) {
 	if (roomInfo.usersCount === 0) {
 		room = {"roomName":roomName, "users":[user]}
 		this.rooms.push(room);
-
-		this.sockets.push(user, socket);
 	} 
 	if (roomInfo.usersCount === 1) 
 	{
 		this.addUserToRoom(user, roomName);
-		this.sockets.push({user:socket});
 	}
 };
 
@@ -33,7 +29,6 @@ Room.prototype.addUserToRoom = function (user,roomName) {
 };
 
 Room.prototype.getRoomInfo = function (roomName) {
-
 	var info = {"usersCount": 0};
 	_.each(this.rooms, function (item) {
 		if(item.roomName === roomName) {
@@ -45,7 +40,7 @@ Room.prototype.getRoomInfo = function (roomName) {
 
 Room.prototype.checkIfRoomIsFull = function (roomName) {
 	_.each(this.rooms, function (item) {
-		if(item.name === roomName && item.users.length === 2) {
+		if(item.roomName === roomName && item.users.length === 2) {
 			throw 'This room is full please select another one';
 		}
 	});

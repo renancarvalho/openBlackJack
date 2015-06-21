@@ -39,6 +39,7 @@ Game.prototype.getUsers = function () {
 };
 
 Game.prototype.buyCard = function(user) {
+	debugger;
 	if (this.canBuyACard(user)){
 		var boughtCard = this.pickRandomCard();
 		boughtCard.user = user;
@@ -74,17 +75,18 @@ Game.prototype.pickRandomCard = function () {
 };
 
 Game.prototype.getWinner = function () {
+	debugger;
 	var user1 = this.users[0];
 	var user2 = this.users[1];
-	var winnerName;
+	var winner;
 
 	if (this.getUserPontuation(user1) === this.getUserPontuation(user2)){
 		return winnerName = "draw"
 	}
 
-	winnerName = this.getUserPontuation(user1) > this.getUserPontuation(user2) ? user1 : user2
+	winner = this.getUserPontuation(user1) > this.getUserPontuation(user2) ? user1 : user2
 	this.resetGame();
-	return winnerName;
+	return winner;
 };
 
 Game.prototype.resetGame = function () {//receive a game id in the future to reset the correct table`
