@@ -51,7 +51,8 @@ module.exports = Backbone.View.extend({
 		this.model.newGame();
 		this.$("#newCard").show();
 		this.$("#done").show();
-		this.render();
+		this.$('#cards').html('');
+		this.$('#otherCards').html('')
 		
 	},
 	renderUsers:function (users) {
