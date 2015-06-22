@@ -31,7 +31,7 @@ Game.prototype.canBuyACard = function (user) {
 			throw "You already closed your hand"
 		}
 	}
-	return this.checkIfIsOver(user);
+	return this.userCanBuyAgain(user);
 };
 
 Game.prototype.getUsers = function () {
@@ -43,18 +43,17 @@ Game.prototype.buyCard = function(user) {
 		var boughtCard = this.pickRandomCard();
 		boughtCard.user = user;
 		this.assignCard(user, boughtCard);
-		this.checkIfIsOver(user);
 		return boughtCard;
 	}
 	this.noMoreCardsForMe(user)
 	return "This user cannot buy more cards in this turn."
 };
 
-Game.prototype.checkIfIsOver = function (user) {
-	//turn on after
-	// if (this.getUserPontuation(user)>21){
-	// 	return false
-	// }
+Game.prototype.userCanBuyAgain = function (user) {
+	if (this.getUserPontuation(user)>21){
+		this.usersDone.push(user);
+		return false;
+	}
 	return true
 };
 

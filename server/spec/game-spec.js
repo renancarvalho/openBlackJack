@@ -54,18 +54,24 @@ describe("When the user say that is enougth",function () {
 describe("When the game ends",function () {
 	var game;
 	var winner;
+	var params = {
+		"cardValue" : 1
+	};
 	beforeEach(function () {
 		game = new Game(["Renan","Thiago"]);
 	});
 
 	it("Should return the winner game and pontuation",function () {
+		spyOn(game, "pickRandomCard").andCallFake(function(){
+			return {'naipe':'Heart', 'value':params.cardValue, 'card':2, 'user':'Renan'};
+		});
+
 		card1 = game.buyCard(game.users[0]);
-		card2 = game.buyCard(game.users[1]);		
-		console.log(game.userCards)
-		winner = +card1.value > +card2.value ? card1 : card2;
+		params.cardValue = 2
+		card2 = game.buyCard(game.users[1]);//Winner with 2 points	
 		var result = game.getWinner();
-		expect(result.winnerName).toBe(winner.user);
-		expect(result.winnerPontuation).toBe(+winner.value);
+		expect(result.winnerName).toBe("Thiago");
+		expect(result.winnerPontuation).toBe(2);
 	});
 
 	it("Should return a draw message if is draw",function () {
@@ -82,35 +88,23 @@ describe("When the game ends",function () {
 		game.getWinner();
 		expect(game.userCards.length).toBe(0);
 	});
-
 });
 
 describe("When user hit more than 21 points",function () {
 	var game;
 	var cards;
+	var spy;
 	beforeEach(function () {
 		game = new Game(["Renan","Thiago"]);
 		spyOn(game, "pickRandomCard").andCallFake(function(){
-			return {'naipe':'Heart', 'value':'12', 'card':2, 'user':'Renan'},{'naipe':'Heart', 'value':'11', 'card':2, 'user':'Renan'}
-		});
-
-		cards = game.buyCard(game.users[0]);
-		cards += game.buyCard(game.users[0]);
-		cards += game.buyCard(game.users[0]);
-
-		spy = spyOn(game, "canBuyACard").andCallFake(function () {
-			//just return false if the user hits more than 21 points
-			if (cards.length>2){
-				return false;
-			}
+			return {'naipe':'Heart', 'value':'10', 'card':2, 'user':'Renan'};
 		});
 	});
 
 	it("Should not be able to buy more cards",function () {
-		//trying to buy more than 21 points
-		game.buyCard(game.users[0]);
-		game.buyCard(game.users[0]);
-		game.buyCard(game.users[0]);
-		// expect(game.userCards.length).toBe(2);
+		game.buyCard("Renan");
+		game.buyCard("Renan");
+		game.buyCard("Renan");
+		expect(game.buyCard("Renan")).toBe("This user cannot buy more cards in this turn.");
 	});
 });
