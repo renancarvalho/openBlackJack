@@ -19,9 +19,10 @@ describe("When the user buy one card",function () {
 	var game;
 	var count = 8;
 	var card;
+	var spy;
 	beforeEach(function(){
 		game = new Game(["Renan","Thiago"]);
-		spyOn(game, "pickRandomCard").andCallFake(function(){
+		spy = spyOn(game, "pickRandomCard").andCallFake(function(){
 			return "{ 'naipe' : 'Heart', 'value' : "+count+", 'card' : "+count+", 'user' : 'Renan'}";
 		});
 		card = game.buyCard("Renan");
@@ -30,8 +31,21 @@ describe("When the user buy one card",function () {
 	it("Should return one random card",function(){
 		expect(card).toBe("{ 'naipe' : 'Heart', 'value' : "+count+", 'card' : "+count+", 'user' : 'Renan'}");
 	});
+
 	it("Should assign the card to the user",function(){
-	    expect(game.userCards).toBeDefined()
+    expect(game.userCards.toString()).toBe("{ 'naipe' : 'Heart', 'value' : 8, 'card' : 8, 'user' : 'Renan'}")
+	});
+});
+
+describe("When assigning a card",function () {
+	var game = new Game(["Renan","Thiago"]);
+	it("should do it to the correct user",function () {
+		game.assignCard("Renan", new Object({"card":"10","naipe":"Heart","value":"10"}));
+		expect(game.userCards[0].user).toBe("Renan");
+	});
+	it("should do it to the correct user when more than 1 user is buying",function () {
+		game.assignCard("Thiago", new Object({"card":"10","naipe":"Heart","value":"10"}));
+		expect(game.userCards[1].user).toBe("Thiago");
 	});
 });
 

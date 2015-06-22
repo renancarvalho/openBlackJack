@@ -10,7 +10,9 @@ function Game (userName) {
 };
 
 Game.prototype.noMoreCardsForMe = function(user) {
-	this.usersDone.push(user);
+	if (this.usersDone.indexOf(user) === -1) { 
+		this.usersDone.push(user);
+	}
 	return this.usersDone.length === 2? true :false;
 };
 
@@ -41,7 +43,6 @@ Game.prototype.getUsers = function () {
 Game.prototype.buyCard = function(user) {
 	if (this.canBuyACard(user)){
 		var boughtCard = this.pickRandomCard();
-		boughtCard.user = user;
 		this.assignCard(user, boughtCard);
 		return boughtCard;
 	}
@@ -58,6 +59,7 @@ Game.prototype.userCanBuyAgain = function (user) {
 };
 
 Game.prototype.assignCard = function (user, card) {
+	card.user = user;
 	this.userCards.push(card);
 };
 

@@ -24,7 +24,7 @@ module.exports = function (io, Room){
 		socket.on("player:newCard", function(user, roomName){
 			console.log(user, "buying card");
 			var newCard = game.buyCard(user);
-			if (typeof(newCard)==='string') {
+			if (typeof(newCard)==='string') {				
 				socket.emit("player:fullHand",newCard)	
 			}
 			else {
@@ -36,6 +36,7 @@ module.exports = function (io, Room){
 		});
 
 		 socket.on("player:done",function (user, roomName) {
+		 	debugger;
 			var userPontuation  = game.getUserPontuation(user);
 			endgame = game.noMoreCardsForMe(user);
 			socket.emit("player:noMoreCards", userPontuation);
