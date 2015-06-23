@@ -7,6 +7,7 @@ function Game (userName) {
 	this.users = userName;
 	this.userCards = [];
 	this.usersDone = [];
+	this.usersWithMoreThan21 = [];
 };
 
 Game.prototype.noMoreCardsForMe = function(user) {
@@ -29,7 +30,7 @@ Game.prototype.getUserPontuation = function (userName) {
 
 Game.prototype.canBuyACard = function (user) {
 	for(var i = 0; i < this.usersDone.length; i++) {
-		if (this.usersDone[i] === user){
+		if (this.usersDone[i] === user) {
 			throw "You already closed your hand"
 		}
 	}
@@ -51,8 +52,9 @@ Game.prototype.buyCard = function(user) {
 };
 
 Game.prototype.userCanBuyAgain = function (user) {
-	if (this.getUserPontuation(user)>21){
+	if (this.getUserPontuation(user) > 21){
 		this.usersDone.push(user);
+		this.usersWithMoreThan21.push(user);
 		return false;
 	}
 	return true
@@ -78,12 +80,18 @@ Game.prototype.getWinner = function () {
 	var user1 = this.users[0];
 	var user2 = this.users[1];
 	var winner;
+	// debugger;
+	if (this.usersWithMoreThan21.length === 2) {
+		return {"winnerName":"Nobody Win", "winnerPontuation": this.getUserPontuation(user1)};
+	}
 
 	if (this.getUserPontuation(user1) === this.getUserPontuation(user2)){
-		return winnerName = "draw"
+		return winnerName = {"winnerName":"Draw", "winnerPontuation": this.getUserPontuation(user1)};
 	}
 
 	winner = this.getUserPontuation(user1) > this.getUserPontuation(user2) ? {"winnerName":user1, "winnerPontuation": this.getUserPontuation(user1)} : {"winnerName":user2, "winnerPontuation": this.getUserPontuation(user2)}
+	
+
 	this.resetGame();
 	return winner;
 };
@@ -91,6 +99,7 @@ Game.prototype.getWinner = function () {
 Game.prototype.resetGame = function () {
 	this.userCards = [];
 	this.usersDone = [];
+	this.usersWithMoreThan21 = [];
 };
 
 module.exports = Game;

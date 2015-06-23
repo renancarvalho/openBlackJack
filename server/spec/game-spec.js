@@ -93,7 +93,22 @@ describe("When the game ends",function () {
 			return "{ 'naipe' : 'Heart', 'value' : 5, 'card' : 5, 'user' : 'Renan'}";
 		});
 		var result = game.getWinner();
-		expect(result).toBe("draw");
+		expect(result.winnerName).toBe("Draw");
+	});
+
+	it("Should return a draw message if is both players hits more than 21 points",function () {
+		spyOn(game, "pickRandomCard").andCallFake(function(){
+			return {'naipe':'Heart', 'value':params.cardValue, 'card':10, 'user':'Renan'};
+		});
+
+		params.cardValue = 22;
+		game.buyCard(game.users[0]);
+		game.buyCard(game.users[1]);
+		game.userCanBuyAgain(game.users[1]);
+		game.userCanBuyAgain(game.users[0]);
+
+		var result = game.getWinner();
+		expect(result.winnerName).toBe("Nobody Win");
 	});
 
 	it("Should reset the game",function () {
