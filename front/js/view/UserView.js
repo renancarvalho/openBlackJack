@@ -21,7 +21,10 @@ var UserView = Backbone.View.extend({
 		this.$el.html(Template());	
 	},
 	newGame:function (e) {
-		new GameView({model: this.model, el:$("#mainGame")})
+		//this is just for teting, i know it is uglyyyy
+		if (!!this.model.get('user')){
+			new GameView({model: this.model, el:$("#mainGame")})
+		}
 	},
 	setName:function (e) {
 		this.model.set(e.target.name, e.target.value);
