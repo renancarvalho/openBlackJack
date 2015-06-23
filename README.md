@@ -28,4 +28,4 @@ Go to `server/` and run `npm test`.
 
 The game is available on this heroku [url](https://infinite-citadel-7060.herokuapp.com/), it is a free account, so it will probably be a little slow. Also the game is not 100% reliable yet, but is possible to play a little bit(with some bugs..heheh)
 
-When you open the game, you just need to write your user name, and a room name. It is only possible to play with a friend, so you need to send the room name that you create, and of course he/she needs to use this room name in 'room name' field.
+When you open the game, you just need to write your user name, and a room name. It is only possible to play with a friend, so you need to send to your friend the room name that you create, and of course he/she needs to use this room name in 'room name' field.
