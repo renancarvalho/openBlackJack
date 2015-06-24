@@ -1,5 +1,5 @@
 var _ 				= require("underscore");
-var cards 		= require("./cards")
+var deck 			= require("./cards");
 
 function Game (userName) {
 	if (userName.length > 2)
@@ -8,6 +8,7 @@ function Game (userName) {
 	this.userCards = [];
 	this.usersDone = [];
 	this.usersWithMoreThan21 = [];
+	this.cards = deck;
 };
 
 Game.prototype.noMoreCardsForMe = function(user) {
@@ -66,21 +67,18 @@ Game.prototype.assignCard = function (user, card) {
 };
 
 Game.prototype.pickRandomCard = function () {
-	var result;
-	var count = 0;
-	for (var prop in cards){
-    if (Math.random() < 1/++count){
-       result = prop;
-    }
-	}
-  return cards[result];
+	var index = _.random(0, this.cards.length);
+	var result = this.cards[index];
+	this.cards.splice(index,1);
+  return result;
 };
 
 Game.prototype.getWinner = function () {
 	var user1 = this.users[0];
 	var user2 = this.users[1];
 	var winner;
-	// debugger;
+
+
 	if (this.usersWithMoreThan21.length === 2) {
 		return {"winnerName":"Nobody Win", "winnerPontuation": this.getUserPontuation(user1)};
 	}
@@ -100,6 +98,8 @@ Game.prototype.resetGame = function () {
 	this.userCards = [];
 	this.usersDone = [];
 	this.usersWithMoreThan21 = [];
+	this.cards = deck;
+
 };
 
 module.exports = Game;

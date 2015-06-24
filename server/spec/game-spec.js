@@ -35,9 +35,17 @@ describe("When the user buy one card",function () {
 	it("Should assign the card to the user",function(){
     expect(game.userCards.toString()).toBe("{ 'suit' : 'Heart', 'value' : 8, 'card' : 8, 'user' : 'Renan'}")
 	});
+
+	it("Should remove the card from deck",function(){
+		spyOn(game, "pickRandomCard").andCallThrough();
+		game.buyCard("Renan");
+    expect(game.userCards.toString()).toBe("{ 'suit' : 'Heart', 'value' : 8, 'card' : 8, 'user' : 'Renan'}")
+	});
+
 });
 
 describe("When assigning a card",function () {
+
 	var game = new Game(["Renan","Thiago"]);
 	it("should do it to the correct user",function () {
 		game.assignCard("Renan", new Object({"card":"10","suit":"Heart","value":"10"}));
