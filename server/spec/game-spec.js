@@ -23,28 +23,28 @@ describe("When the user buy one card",function () {
 	beforeEach(function(){
 		game = new Game(["Renan","Thiago"]);
 		spy = spyOn(game, "pickRandomCard").andCallFake(function(){
-			return "{ 'naipe' : 'Heart', 'value' : "+count+", 'card' : "+count+", 'user' : 'Renan'}";
+			return "{ 'suit' : 'Heart', 'value' : "+count+", 'card' : "+count+", 'user' : 'Renan'}";
 		});
 		card = game.buyCard("Renan");
 	});
 	
 	it("Should return one random card",function(){
-		expect(card).toBe("{ 'naipe' : 'Heart', 'value' : "+count+", 'card' : "+count+", 'user' : 'Renan'}");
+		expect(card).toBe("{ 'suit' : 'Heart', 'value' : "+count+", 'card' : "+count+", 'user' : 'Renan'}");
 	});
 
 	it("Should assign the card to the user",function(){
-    expect(game.userCards.toString()).toBe("{ 'naipe' : 'Heart', 'value' : 8, 'card' : 8, 'user' : 'Renan'}")
+    expect(game.userCards.toString()).toBe("{ 'suit' : 'Heart', 'value' : 8, 'card' : 8, 'user' : 'Renan'}")
 	});
 });
 
 describe("When assigning a card",function () {
 	var game = new Game(["Renan","Thiago"]);
 	it("should do it to the correct user",function () {
-		game.assignCard("Renan", new Object({"card":"10","naipe":"Heart","value":"10"}));
+		game.assignCard("Renan", new Object({"card":"10","suit":"Heart","value":"10"}));
 		expect(game.userCards[0].user).toBe("Renan");
 	});
 	it("should do it to the correct user when more than 1 user is buying",function () {
-		game.assignCard("Thiago", new Object({"card":"10","naipe":"Heart","value":"10"}));
+		game.assignCard("Thiago", new Object({"card":"10","suit":"Heart","value":"10"}));
 		expect(game.userCards[1].user).toBe("Thiago");
 	});
 });
@@ -77,7 +77,7 @@ describe("When the game ends",function () {
 
 	it("Should return the winner game and pontuation",function () {
 		spyOn(game, "pickRandomCard").andCallFake(function(){
-			return {'naipe':'Heart', 'value':params.cardValue, 'card':2, 'user':'Renan'};
+			return {'suit':'Heart', 'value':params.cardValue, 'card':2, 'user':'Renan'};
 		});
 
 		card1 = game.buyCard(game.users[0]);
@@ -90,7 +90,7 @@ describe("When the game ends",function () {
 
 	it("Should return a draw message if is draw",function () {
 		spyOn(game, "buyCard").andReturn(function(){
-			return "{ 'naipe' : 'Heart', 'value' : 5, 'card' : 5, 'user' : 'Renan'}";
+			return "{ 'suit' : 'Heart', 'value' : 5, 'card' : 5, 'user' : 'Renan'}";
 		});
 		var result = game.getWinner();
 		expect(result.winnerName).toBe("Draw");
@@ -98,7 +98,7 @@ describe("When the game ends",function () {
 
 	it("Should return a draw message if is both players hits more than 21 points",function () {
 		spyOn(game, "pickRandomCard").andCallFake(function(){
-			return {'naipe':'Heart', 'value':params.cardValue, 'card':10, 'user':'Renan'};
+			return {'suit':'Heart', 'value':params.cardValue, 'card':10, 'user':'Renan'};
 		});
 
 		params.cardValue = 22;
@@ -126,7 +126,7 @@ describe("When user hit more than 21 points",function () {
 	beforeEach(function () {
 		game = new Game(["Renan","Thiago"]);
 		spyOn(game, "pickRandomCard").andCallFake(function(){
-			return {'naipe':'Heart', 'value':'10', 'card':2, 'user':'Renan'};
+			return {'suit':'Heart', 'value':'10', 'card':2, 'user':'Renan'};
 		});
 	});
 
