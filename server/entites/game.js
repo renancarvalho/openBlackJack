@@ -67,7 +67,8 @@ Game.prototype.assignCard = function (user, card) {
 };
 
 Game.prototype.pickRandomCard = function () {
-	var index = _.random(0, this.cards.length);
+	debugger;
+	var index = _.random(0, this.cards.length - 1);
 	var result = this.cards[index];
 	this.cards.splice(index,1);
   return result;
@@ -80,10 +81,12 @@ Game.prototype.getWinner = function () {
 
 
 	if (this.usersWithMoreThan21.length === 2) {
+		this.resetGame();
 		return {"winnerName":"Nobody Win", "winnerPontuation": this.getUserPontuation(user1)};
 	}
 
 	if (this.getUserPontuation(user1) === this.getUserPontuation(user2)){
+		this.resetGame();
 		return winnerName = {"winnerName":"Draw", "winnerPontuation": this.getUserPontuation(user1)};
 	}
 
