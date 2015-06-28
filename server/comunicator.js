@@ -23,15 +23,21 @@ module.exports = function (io, Room){
 
 		socket.on("player:newCard", function(user, roomName){
 			console.log(user, "buying card");
-			var newCard = game.buyCard(user);
-			if (typeof(newCard)==='string') {				
+			try
+			{
+				var newCard = game.buyCard(user);
+				if (typeof(newCard)==='string') {				
 				socket.emit("player:fullHand",newCard)	
+				}
+				else {
+					var sockets = getSocketsInRoom(roomName)
+					var opponent = getOpponent(sockets,socket);
+					opponent[0].emit("opponent:newCard");
+					socket.emit("player:newCard", newCard);	
+				}
 			}
-			else {
-				var sockets = getSocketsInRoom(roomName)
-				var opponent = getOpponent(sockets,socket);
-				opponent[0].emit("opponent:newCard");
-				socket.emit("player:newCard", newCard);	
+			catch(ex){
+				console.log(ex);
 			}
 		});
 
