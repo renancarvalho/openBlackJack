@@ -1,4 +1,4 @@
-# Open BlackJack. 
+# Open BlackJack.   
 This is the open version of the famous game BlackJack (work in progress) built only using javascript, the main idea of this project is to study `socket.io` and `js` in general. 
 
 Here you will probably find more advanced usage of socket.io, like sending messages to a specific socket.id, broadcasting messages, creating rooms (tables) dynamically, seding messages to a specific room and etc. Of course you're invited to help this repo and create a good code base with good examples of socket.io power, but remember this is a work in progress, it's not done yet.
