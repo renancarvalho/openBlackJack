@@ -1,0 +1,3 @@
+[submodule "openBlackJack.wiki"]
+	path = openBlackJack.wiki
+	url = https://github.com/renancarvalho/openBlackJack.wiki.git
